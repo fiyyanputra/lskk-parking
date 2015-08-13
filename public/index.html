@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	 <style type="text/css">
+      #map_canvas { height: 100% }
+    </style>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('http://localhost');
+		
+		setInterval(function(){
+			var img = document.getElementById('myImg');
+			//img.src = 'http://167.205.66.90/snapshot.cgi';
+			img.src = 'update.jpeg';
+			
+			//push to ftp
+			imageUrl = 'http://167.205.66.90/snapshot.cgi';
+			socket.emit('pushtoftp', { imgurl: imageUrl});
+		}, 1000);	
+	</script> 
+</head>
+<body onload='setInterval()'>
+<br />
+<div class="container-fluid">
+   <div class="row">
+   
+      <div class="col-sm-12">
+			<div class="alert alert-success" id="Count"><p><strong>LSKK-PARKING(PUSH to FTP)</strong></p></div> 
+      </div> 
+	  	  
+      <div class="col-sm-12">
+         <div class="well ">
+			<center>	<img id="myImg" src='update.jpeg'></center>
+         </div>
+		</div>
+      </div>
+   </div>
+ </div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+</body>
+</html>
