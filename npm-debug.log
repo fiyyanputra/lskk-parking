@@ -1,0 +1,73 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files (x86)\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'mysql' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of c:\Node\Lskk Parking\lskk-parking\package.json
+5 warn package.json lskk-parking@ No repository field.
+6 warn package.json lskk-parking@ No README data
+7 warn package.json lskk-parking@ No license field.
+8 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\ejs\package.json
+9 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\express\package.json
+10 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\http\package.json
+11 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\jsftp\package.json
+12 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\log4js\package.json
+13 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\request\package.json
+14 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\socket.io\package.json
+15 verbose installManyTop reading scoped package data from c:\Node\Lskk Parking\lskk-parking\node_modules\util\package.json
+16 info package.json http@0.0.0 http is also the name of a node core module.
+17 info package.json http@0.0.0 No description
+18 info package.json http@0.0.0 No repository field.
+19 info package.json http@0.0.0 No README data
+20 info package.json socket.io@0.9.16 No license field.
+21 info package.json jsftp@1.5.2 No license field.
+22 info package.json util@0.10.3 util is also the name of a node core module.
+23 verbose readDependencies loading dependencies from c:\Node\Lskk Parking\lskk-parking\package.json
+24 silly cache add args [ 'mysql', null ]
+25 verbose cache add spec mysql
+26 silly cache add parsed spec { raw: 'mysql',
+26 silly cache add   scope: null,
+26 silly cache add   name: 'mysql',
+26 silly cache add   rawSpec: '',
+26 silly cache add   spec: '*',
+26 silly cache add   type: 'range' }
+27 silly addNamed mysql@*
+28 verbose addNamed "*" is a valid semver range for mysql
+29 silly addNameRange { name: 'mysql', range: '*', hasData: false }
+30 silly mapToRegistry name mysql
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/mysql
+34 verbose addNameRange registry:https://registry.npmjs.org/mysql not in flight; fetching
+35 verbose request uri https://registry.npmjs.org/mysql
+36 verbose request no auth needed
+37 info attempt registry request try #1 at 11:53:03 AM
+38 verbose request id 29101fe3ab2f8200
+39 http request GET https://registry.npmjs.org/mysql
+40 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+41 info attempt registry request try #2 at 11:53:34 AM
+42 http request GET https://registry.npmjs.org/mysql
+43 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+44 info attempt registry request try #3 at 11:54:55 AM
+45 http request GET https://registry.npmjs.org/mysql
+46 verbose stack Error: connect ETIMEDOUT
+46 verbose stack     at exports._errnoException (util.js:746:11)
+46 verbose stack     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1010:19)
+47 verbose cwd c:\Node\Lskk Parking\lskk-parking
+48 error Windows_NT 6.3.9600
+49 error argv "c:\\Program Files (x86)\\nodejs\\node.exe" "c:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "mysql"
+50 error node v0.12.7
+51 error npm  v2.11.3
+52 error code ETIMEDOUT
+53 error errno ETIMEDOUT
+54 error syscall connect
+55 error network connect ETIMEDOUT
+55 error network This is most likely not a problem with npm itself
+55 error network and is related to network connectivity.
+55 error network In most cases you are behind a proxy or have bad network settings.
+55 error network
+55 error network If you are behind a proxy, please make sure that the
+55 error network 'proxy' config is set properly.  See: 'npm help config'
+56 verbose exit [ 1, true ]

@@ -5,6 +5,9 @@ express = require('express');
 http = require('http');
 JSFtp = require('jsftp');
 fs = require('fs');
+var mysql = require('mysql');
+
+var filepath;
 
 //setting ftp
 var Ftp = new JSFtp({
@@ -12,6 +15,15 @@ var Ftp = new JSFtp({
   port: 21, // defaults to 21
   user: "cctv|cctv", // defaults to "anonymous"
   pass: "cctvuser" // defaults to "@anonymous"
+});
+
+
+//mysql setup
+var dbcon = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database: 'svc_lskk'
 });
 
 app = express();
@@ -61,17 +73,23 @@ io.sockets.on('connection', function(socket) {
 		var delay = 1000;
 		var request = require('request').defaults({ encoding: null });
 		setTimeout(function(){
-			  request.get(data.imgurl, function (err, buffer) {
-				  //console.log(buffer);
+			  request.get(data.imgurl, function (err, res, buffer) {
+				  // console.log(buffer.body.length);
 				  if(err)
 					console.log(err);
 				  else{
-				  //to cctv folder
-					Ftp.put(buffer, '/CCTV/'+new Date().getTime()+'.jpeg', function(hadError) {
+				  // -------- to cctv folder ---------
+					var d = new Date();
+					var filename=d.getDate()+'-'+(d.getMonth() + 1) +'-'+d.getFullYear()+'_'+d.getHours()+'-'+d.getMinutes()+'-'+d.getSeconds();
+					Ftp.put(buffer, '/CCTV/'+filename+'.jpeg', function(hadError) {
 					  if(hadError)
 						console.log("File not transferred! " + hadError);
-					  else
-						console.log(new Date().getTime()+".jpeg transferred successfully!");
+					  else{
+							console.log(filename+".jpeg transferred successfully!");
+							filepath = 'ftp://ftp.lskk.ee.itb.ac.id/CCTV/'+filename+'.jpeg';
+							console.log("res :"+res);
+						}
+
 						 //to view folder
 						var file = fs.createWriteStream("public/update.jpeg");
 						var req = http.get(data.imgurl, function(response) {
@@ -79,12 +97,33 @@ io.sockets.on('connection', function(socket) {
 							console.log("update.jpeg fail to update! time:"+new Date().toDateString());
 						  else{
 							console.log("update.jpeg updated!");
+							//console.log(data);
 							response.pipe(file);
 						  }
 						});	
+						
+						//insertToDB(data.imgurl, filename);
+						 
 					});		
 				}							
 			});	
 		}, delay); 
 	});
  });
+ 
+function insertToDB(url, filename){
+	dbcon.query('SELECT * FROM stream_captured', function(err, rows, fields) {
+	  if (err) throw err;
+
+	  //console.log('stream_captured table: \n', rows);
+	  var post = {file_name : filename+'.jpeg', file_size : '20', file_date : '01010', file_path : filepath };
+	  var query = dbcon.query('INSERT INTO stream_captured SET ?', post, function(err, result) {
+		  // Neat!
+		  if (err) throw err;
+		  console.log('Sukses insert to database');
+		});
+		// console.log(filename+'.jpeg');
+	});
+	
+	
+}
